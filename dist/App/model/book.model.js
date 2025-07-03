@@ -5,7 +5,17 @@ const mongoose_1 = require("mongoose");
 const bookSchema = new mongoose_1.Schema({
     title: String,
     auther: String,
-    genre: String,
+    genre: {
+        type: String,
+        enum: [
+            "FANTASY",
+            "BIOGRAPHY",
+            "HISTORY",
+            "SCIENCE",
+            "NON_FICTION",
+            "FICTION",
+        ],
+    },
     isbn: String,
     decription: String,
     copies: Number,

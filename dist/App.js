@@ -5,8 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = void 0;
 const express_1 = __importDefault(require("express"));
+const book_controllers_1 = require("./App/controllers/book.controllers");
 exports.app = (0, express_1.default)();
 exports.app.use(express_1.default.json());
+exports.app.use("/books", book_controllers_1.bookRouter);
 exports.app.get("/", (req, res) => {
     res.send(console.log("Hallo world !"));
 });
