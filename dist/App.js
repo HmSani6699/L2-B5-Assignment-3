@@ -10,5 +10,5 @@ exports.app = (0, express_1.default)();
 exports.app.use(express_1.default.json());
 exports.app.use("/books", book_controllers_1.bookRouter);
 exports.app.get("/", (req, res) => {
-    res.send(console.log("Hallo world !"));
+    res.send("Hallo World");
 });

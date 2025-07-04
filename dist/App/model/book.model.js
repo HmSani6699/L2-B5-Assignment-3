@@ -20,5 +20,8 @@ const bookSchema = new mongoose_1.Schema({
     decription: String,
     copies: Number,
     available: Boolean,
+}, {
+    versionKey: false,
+    timestamps: true,
 });
 exports.Book = (0, mongoose_1.model)("Book", bookSchema);

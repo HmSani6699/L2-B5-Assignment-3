@@ -9,5 +9,5 @@ app.use(express.json());
 app.use("/books", bookRouter);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send(console.log("Hallo world !"));
+  res.send("Hallo World");
 });

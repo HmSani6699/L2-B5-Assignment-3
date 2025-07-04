@@ -21,7 +21,7 @@ function main() {
         try {
             server = App_1.app.listen(PORT, () => __awaiter(this, void 0, void 0, function* () {
                 console.log("✅ Server is runing on the port: 5000");
-                yield mongoose_1.default.connect("mongodb+srv://sadiq:devsadiq6699@cluster0.2wuqxlq.mongodb.net/library?retryWrites=true&w=majority&appName=Cluster0");
+                yield mongoose_1.default.connect("mongodb+srv://sadiq:devsadiq6699@cluster0.2wuqxlq.mongodb.net/Library?retryWrites=true&w=majority&appName=Cluster0");
                 console.log("✅ Database is connect");
             }));
         }
