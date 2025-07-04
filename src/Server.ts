@@ -12,8 +12,9 @@ async function main() {
       console.log("✅ Server is runing on the port: 5000");
 
       await mongoose.connect(
-        "mongodb+srv://mongodb:%devsadiq6699@cluster0.2wuqxlq.mongodb.net/Library?retryWrites=true&w=majority&appName=Cluster0"
+        "mongodb+srv://sadiq:devsadiq6699@cluster0.2wuqxlq.mongodb.net/library?retryWrites=true&w=majority&appName=Cluster0"
       );
+      console.log("✅ Database is connect");
     });
   } catch (error) {
     console.log(error);
