@@ -27,53 +27,7 @@ bookRouter.post("/create-book", async (req: Request, res: Response) => {
   }
 });
 
-// GET all book
-// bookRouter.get("/", async (req: Request, res: Response) => {
-//   const { filter, sortBy, sort, limit } = req.query;
-
-//   let books = [];
-
-//   try {
-//     if (filter) {
-//       books = await Book.find({ genre: filter });
-//     } else if (sortBy && sort) {
-//       const sortValue = sort === "asc" ? 1 : -1;
-//       const numericLimit = Number(limit);
-
-//       if (limit) {
-//         books = await Book.find()
-//           .sort({ createdAt: sortValue })
-//           .limit(numericLimit);
-//       } else {
-//         books = await Book.find().sort({ createdAt: sortValue });
-//       }
-//     } else {
-//       books = await Book.find();
-//     }
-
-//     if (books.length > 0) {
-//       res.status(200).json({
-//         sussecc: true,
-//         message: " Get all Books successfully ..!",
-//         books,
-//       });
-//     } else {
-//       res.status(200).json({
-//         sussecc: true,
-//         message: "Books is not found ..!",
-//       });
-//     }
-//   } catch (error: any) {
-//     console.log(error);
-
-//     res.status(400).json({
-//       success: false,
-//       message: "Book not created",
-//       error: error.errors,
-//     });
-//   }
-// });
-
+// GET all books
 bookRouter.get("/", async (req: Request, res: Response) => {
   const { filter, sortBy, sort, limit } = req.query;
 
@@ -100,7 +54,8 @@ bookRouter.get("/", async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: "Get all books successfully ..!",
+      message:
+        books.length > 0 ? "Books retrieved successfully" : "Books Not Found",
       books: books,
     });
   } catch (error: any) {
@@ -108,7 +63,54 @@ bookRouter.get("/", async (req: Request, res: Response) => {
 
     res.status(400).json({
       success: false,
-      message: "Book not created",
+      message: "Book not Found  ..!",
+      error: error.errors,
+    });
+  }
+});
+
+// GET a single book
+bookRouter.get("/:bookId", async (req: Request, res: Response) => {
+  const id = req.params.bookId;
+
+  try {
+    const book = await Book.findById(id);
+
+    res.status(200).json({
+      success: true,
+      message: "Book retrieved successfully",
+      books: book,
+    });
+  } catch (error: any) {
+    console.log(error);
+
+    res.status(400).json({
+      success: false,
+      message: "Book not Found  ..!",
+      error: error.errors,
+    });
+  }
+});
+
+// UPDATE a single book
+bookRouter.put("/:bookId", async (req: Request, res: Response) => {
+  const id = req.params.bookId;
+  const updateBody = req.body;
+
+  try {
+    const book = await Book.findByIdAndUpdate(id, updateBody, { new: true });
+
+    res.status(200).json({
+      success: true,
+      message: "Book updated successfully",
+      books: book,
+    });
+  } catch (error: any) {
+    console.log(error);
+
+    res.status(400).json({
+      success: false,
+      message: "Book not Found  ..!",
       error: error.errors,
     });
   }
