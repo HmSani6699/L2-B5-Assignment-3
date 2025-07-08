@@ -110,7 +110,6 @@ exports.bookRouter.delete("/books/:bookId", (req, res) => __awaiter(void 0, void
         });
     }
     catch (error) {
-        console.log(error);
         res.status(400).json({
             success: false,
             message: "Book not Found  ..!",

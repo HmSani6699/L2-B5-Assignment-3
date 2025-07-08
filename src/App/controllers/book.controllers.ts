@@ -116,8 +116,6 @@ bookRouter.delete("/books/:bookId", async (req: Request, res: Response) => {
       data: null,
     });
   } catch (error: any) {
-    console.log(error);
-
     res.status(400).json({
       success: false,
       message: "Book not Found  ..!",
