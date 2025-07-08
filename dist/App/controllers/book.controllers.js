@@ -38,41 +38,68 @@ exports.bookRouter.post("/create-book", (req, res) => __awaiter(void 0, void 0, 
     }
 }));
 // GET all book
+// bookRouter.get("/", async (req: Request, res: Response) => {
+//   const { filter, sortBy, sort, limit } = req.query;
+//   let books = [];
+//   try {
+//     if (filter) {
+//       books = await Book.find({ genre: filter });
+//     } else if (sortBy && sort) {
+//       const sortValue = sort === "asc" ? 1 : -1;
+//       const numericLimit = Number(limit);
+//       if (limit) {
+//         books = await Book.find()
+//           .sort({ createdAt: sortValue })
+//           .limit(numericLimit);
+//       } else {
+//         books = await Book.find().sort({ createdAt: sortValue });
+//       }
+//     } else {
+//       books = await Book.find();
+//     }
+//     if (books.length > 0) {
+//       res.status(200).json({
+//         sussecc: true,
+//         message: " Get all Books successfully ..!",
+//         books,
+//       });
+//     } else {
+//       res.status(200).json({
+//         sussecc: true,
+//         message: "Books is not found ..!",
+//       });
+//     }
+//   } catch (error: any) {
+//     console.log(error);
+//     res.status(400).json({
+//       success: false,
+//       message: "Book not created",
+//       error: error.errors,
+//     });
+//   }
+// });
 exports.bookRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { filter, sortBy, sort, limit } = req.query;
-    let books = [];
     try {
+        let query = {};
         if (filter) {
-            books = yield book_model_1.Book.find({ genre: filter });
+            query.genre = filter;
         }
-        else if (sortBy && sort) {
-            const sortValue = sort === "asc" ? 1 : -1;
+        const sortField = sortBy || "createdAt";
+        const sortValue = (sort === null || sort === void 0 ? void 0 : sort.toString().toLowerCase()) === "asc" ? 1 : -1;
+        let queryBuilder = book_model_1.Book.find(query).sort({
+            [sortField]: sortValue,
+        });
+        if (limit) {
             const numericLimit = Number(limit);
-            if (limit) {
-                books = yield book_model_1.Book.find()
-                    .sort({ createdAt: sortValue })
-                    .limit(numericLimit);
-            }
-            else {
-                books = yield book_model_1.Book.find().sort({ createdAt: sortValue });
-            }
+            queryBuilder = queryBuilder.limit(numericLimit);
         }
-        else {
-            books = yield book_model_1.Book.find();
-        }
-        if (books.length > 0) {
-            res.status(200).json({
-                sussecc: true,
-                message: " Get all Books successfully ..!",
-                books,
-            });
-        }
-        else {
-            res.status(200).json({
-                sussecc: true,
-                message: "Books is not found ..!",
-            });
-        }
+        const books = yield queryBuilder;
+        res.status(200).json({
+            success: true,
+            message: "Get all books successfully ..!",
+            books: books,
+        });
     }
     catch (error) {
         console.log(error);

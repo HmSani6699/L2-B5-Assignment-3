@@ -28,41 +28,81 @@ bookRouter.post("/create-book", async (req: Request, res: Response) => {
 });
 
 // GET all book
+// bookRouter.get("/", async (req: Request, res: Response) => {
+//   const { filter, sortBy, sort, limit } = req.query;
+
+//   let books = [];
+
+//   try {
+//     if (filter) {
+//       books = await Book.find({ genre: filter });
+//     } else if (sortBy && sort) {
+//       const sortValue = sort === "asc" ? 1 : -1;
+//       const numericLimit = Number(limit);
+
+//       if (limit) {
+//         books = await Book.find()
+//           .sort({ createdAt: sortValue })
+//           .limit(numericLimit);
+//       } else {
+//         books = await Book.find().sort({ createdAt: sortValue });
+//       }
+//     } else {
+//       books = await Book.find();
+//     }
+
+//     if (books.length > 0) {
+//       res.status(200).json({
+//         sussecc: true,
+//         message: " Get all Books successfully ..!",
+//         books,
+//       });
+//     } else {
+//       res.status(200).json({
+//         sussecc: true,
+//         message: "Books is not found ..!",
+//       });
+//     }
+//   } catch (error: any) {
+//     console.log(error);
+
+//     res.status(400).json({
+//       success: false,
+//       message: "Book not created",
+//       error: error.errors,
+//     });
+//   }
+// });
+
 bookRouter.get("/", async (req: Request, res: Response) => {
   const { filter, sortBy, sort, limit } = req.query;
 
-  let books = [];
-
   try {
+    let query: any = {};
+
     if (filter) {
-      books = await Book.find({ genre: filter });
-    } else if (sortBy && sort) {
-      const sortValue = sort === "asc" ? 1 : -1;
+      query.genre = filter;
+    }
+
+    const sortField = (sortBy as string) || "createdAt";
+    const sortValue = sort?.toString().toLowerCase() === "asc" ? 1 : -1;
+
+    let queryBuilder = Book.find(query).sort({
+      [sortField]: sortValue,
+    });
+
+    if (limit) {
       const numericLimit = Number(limit);
-
-      if (limit) {
-        books = await Book.find()
-          .sort({ createdAt: sortValue })
-          .limit(numericLimit);
-      } else {
-        books = await Book.find().sort({ createdAt: sortValue });
-      }
-    } else {
-      books = await Book.find();
+      queryBuilder = queryBuilder.limit(numericLimit);
     }
 
-    if (books.length > 0) {
-      res.status(200).json({
-        sussecc: true,
-        message: " Get all Books successfully ..!",
-        books,
-      });
-    } else {
-      res.status(200).json({
-        sussecc: true,
-        message: "Books is not found ..!",
-      });
-    }
+    const books = await queryBuilder;
+
+    res.status(200).json({
+      success: true,
+      message: "Get all books successfully ..!",
+      books: books,
+    });
   } catch (error: any) {
     console.log(error);
 
