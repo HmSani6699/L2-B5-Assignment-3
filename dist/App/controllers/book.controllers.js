@@ -111,3 +111,23 @@ exports.bookRouter.put("/:bookId", (req, res) => __awaiter(void 0, void 0, void 
         });
     }
 }));
+// Delete a single book
+exports.bookRouter.delete("/:bookId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.bookId;
+    try {
+        const book = yield book_model_1.Book.findByIdAndDelete(id, { new: true });
+        res.status(200).json({
+            success: true,
+            message: "Book deleted successfully",
+            data: null,
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: "Book not Found  ..!",
+            error: error.errors,
+        });
+    }
+}));
