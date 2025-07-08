@@ -6,9 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = void 0;
 const express_1 = __importDefault(require("express"));
 const book_controllers_1 = require("./App/controllers/book.controllers");
+const borrow_controller_1 = require("./App/controllers/borrow.controller");
 exports.app = (0, express_1.default)();
 exports.app.use(express_1.default.json());
-exports.app.use("/books", book_controllers_1.bookRouter);
+exports.app.use("/api", book_controllers_1.bookRouter);
+exports.app.use("/api", borrow_controller_1.borrowRouter);
 exports.app.get("/", (req, res) => {
     res.send("Hallo World");
 });

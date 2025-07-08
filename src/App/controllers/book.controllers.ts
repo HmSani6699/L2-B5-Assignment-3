@@ -3,7 +3,7 @@ import { Book } from "../model/book.model";
 export const bookRouter = express.Router();
 
 // POST a book
-bookRouter.post("/create-book", async (req: Request, res: Response) => {
+bookRouter.post("/books", async (req: Request, res: Response) => {
   const bookBody = req.body;
 
   try {
@@ -28,7 +28,7 @@ bookRouter.post("/create-book", async (req: Request, res: Response) => {
 });
 
 // GET all books
-bookRouter.get("/", async (req: Request, res: Response) => {
+bookRouter.get("/books", async (req: Request, res: Response) => {
   try {
     const { filter, sortBy, sort, limit } = req.query;
 
@@ -57,7 +57,7 @@ bookRouter.get("/", async (req: Request, res: Response) => {
 });
 
 // GET a single book
-bookRouter.get("/:bookId", async (req: Request, res: Response) => {
+bookRouter.get("/books/:bookId", async (req: Request, res: Response) => {
   const id = req.params.bookId;
 
   try {
@@ -80,7 +80,7 @@ bookRouter.get("/:bookId", async (req: Request, res: Response) => {
 });
 
 // UPDATE a single book
-bookRouter.put("/:bookId", async (req: Request, res: Response) => {
+bookRouter.put("/books/:bookId", async (req: Request, res: Response) => {
   const id = req.params.bookId;
   const updateBody = req.body;
 
@@ -104,7 +104,7 @@ bookRouter.put("/:bookId", async (req: Request, res: Response) => {
 });
 
 // Delete a single book
-bookRouter.delete("/:bookId", async (req: Request, res: Response) => {
+bookRouter.delete("/books/:bookId", async (req: Request, res: Response) => {
   const id = req.params.bookId;
 
   try {
