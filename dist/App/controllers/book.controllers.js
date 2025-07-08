@@ -39,22 +39,9 @@ exports.bookRouter.post("/create-book", (req, res) => __awaiter(void 0, void 0, 
 }));
 // GET all books
 exports.bookRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { filter, sortBy, sort, limit } = req.query;
     try {
-        let query = {};
-        if (filter) {
-            query.genre = filter;
-        }
-        const sortField = sortBy || "createdAt";
-        const sortValue = (sort === null || sort === void 0 ? void 0 : sort.toString().toLowerCase()) === "asc" ? 1 : -1;
-        let queryBuilder = book_model_1.Book.find(query).sort({
-            [sortField]: sortValue,
-        });
-        if (limit) {
-            const numericLimit = Number(limit);
-            queryBuilder = queryBuilder.limit(numericLimit);
-        }
-        const books = yield queryBuilder;
+        const { filter, sortBy, sort, limit } = req.query;
+        const books = yield book_model_1.Book.getFilterBook(filter, sortBy, sort, Number(limit));
         res.status(200).json({
             success: true,
             message: books.length > 0 ? "Books retrieved successfully" : "Books Not Found",

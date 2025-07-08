@@ -29,28 +29,15 @@ bookRouter.post("/create-book", async (req: Request, res: Response) => {
 
 // GET all books
 bookRouter.get("/", async (req: Request, res: Response) => {
-  const { filter, sortBy, sort, limit } = req.query;
-
   try {
-    let query: any = {};
+    const { filter, sortBy, sort, limit } = req.query;
 
-    if (filter) {
-      query.genre = filter;
-    }
-
-    const sortField = (sortBy as string) || "createdAt";
-    const sortValue = sort?.toString().toLowerCase() === "asc" ? 1 : -1;
-
-    let queryBuilder = Book.find(query).sort({
-      [sortField]: sortValue,
-    });
-
-    if (limit) {
-      const numericLimit = Number(limit);
-      queryBuilder = queryBuilder.limit(numericLimit);
-    }
-
-    const books = await queryBuilder;
+    const books = await Book.getFilterBook(
+      filter as string,
+      sortBy as string,
+      sort as string,
+      Number(limit)
+    );
 
     res.status(200).json({
       success: true,
