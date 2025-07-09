@@ -6,5 +6,8 @@ const borrowSchema = new mongoose_1.Schema({
     book: String,
     quantity: Number,
     dueDate: Date,
+}, {
+    versionKey: false,
+    timestamps: true,
 });
 exports.Borrow = (0, mongoose_1.model)("Borrow", borrowSchema);
