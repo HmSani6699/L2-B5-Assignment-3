@@ -27,6 +27,7 @@ const bookSchema = new Schema<IBooks, BookMethods>(
   }
 );
 
+// Filter book
 bookSchema.statics.getFilterBook = async function (
   filter?: string,
   sortBy: string = "createdAt",

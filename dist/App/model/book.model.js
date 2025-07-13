@@ -33,6 +33,7 @@ const bookSchema = new mongoose_1.Schema({
     versionKey: false,
     timestamps: true,
 });
+// Filter book
 bookSchema.statics.getFilterBook = function (filter_1) {
     return __awaiter(this, arguments, void 0, function* (filter, sortBy = "createdAt", sort = "desc", limit) {
         const query = {};

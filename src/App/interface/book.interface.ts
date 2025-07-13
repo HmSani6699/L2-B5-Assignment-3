@@ -18,3 +18,7 @@ export interface BookMethods extends Model<IBooks> {
     limit: number
   ): Promise<any>;
 }
+
+export interface IBookDocument extends IBooks, Document {
+  decreaseCopies(quantity: number): Promise<void>;
+}
