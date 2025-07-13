@@ -2,9 +2,8 @@ import { Server } from "http";
 import { app } from "./App";
 import mongoose from "mongoose";
 
-const PORT = 5000;
-
 let server: Server;
+const PORT = 5000;
 
 async function main() {
   try {

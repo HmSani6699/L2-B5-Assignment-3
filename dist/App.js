@@ -12,5 +12,5 @@ exports.app.use(express_1.default.json());
 exports.app.use("/api", book_controllers_1.bookRouter);
 exports.app.use("/api", borrow_controller_1.borrowRouter);
 exports.app.get("/", (req, res) => {
-    res.send("Hallo World");
+    res.send("Welcome to Library server");
 });

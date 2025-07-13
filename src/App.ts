@@ -12,5 +12,5 @@ app.use("/api", bookRouter);
 app.use("/api", borrowRouter);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hallo World");
+  res.send("Welcome to Library server");
 });
