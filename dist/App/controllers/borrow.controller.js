@@ -20,43 +20,6 @@ exports.borrowRouter = express_1.default.Router();
 exports.borrowRouter.post("/borrow", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { book, quantity, dueDate } = req.body;
     try {
-        // const getBookCopies = await Book.findById(book);
-        // if (getBookCopies && getBookCopies.copies > 0) {
-        //   if (getBookCopies.copies >= quantity) {
-        //     // post korbes
-        //     const borrowBook = new Borrow({ book, quantity, dueDate });
-        //     await borrowBook.save();
-        //     const updateBookCopiesNumber = getBookCopies.copies - quantity;
-        //     if (updateBookCopiesNumber === 0) {
-        //       await Book.findByIdAndUpdate(book, {
-        //         copies: updateBookCopiesNumber,
-        //         available: false,
-        //       });
-        //     } else {
-        //       await Book.findByIdAndUpdate(book, {
-        //         copies: updateBookCopiesNumber,
-        //       });
-        //     }
-        //     res.status(200).json({
-        //       success: true,
-        //       message: "Book borrowed successfully",
-        //       data: borrowBook,
-        //     });
-        //   } else {
-        //     res.status(200).json({
-        //       success: true,
-        //       message: "This quantity not available",
-        //     });
-        //   }
-        // } else {
-        //   await Book.findByIdAndUpdate(book, {
-        //     available: false,
-        //   });
-        // res.status(200).json({
-        //   success: true,
-        //   message: "This book is not available",
-        // });
-        // }
         const borrow = new borrow_model_1.Borrow({ book, quantity, dueDate });
         yield borrow.save();
         res.status(200).json({
