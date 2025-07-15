@@ -165,7 +165,7 @@ Use Postman or Thunder Client to test the endpoints, or refer to the example req
 
 ## 📹 Video Explanation
 
-🎥 https://drive.google.com/file/d/1H_jo1VVelCncUFa3vlGtAFDtur6zSR6E/view
+🎥 https://drive.google.com/file/d/1H_jo1VVelCncUFa3vlGtAFDtur6zSR6E/view?usp=sharing
 
 ---
 
